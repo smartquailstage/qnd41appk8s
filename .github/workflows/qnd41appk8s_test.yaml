@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./qnd41appk8s
+        working-directory: ./qnd41appk8s/qnd41app
     env:
       DJANGO_SECRET_KEY: test-key-not-good
       NAME_DB: node0db
