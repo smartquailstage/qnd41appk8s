@@ -1,0 +1,41 @@
+name: SmartQuail Docker Build Apps QND41
+
+on:
+  workflow_call:
+  workflow_dispatch:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+ 
+jobs:
+  qnd41appk8s_test:
+    uses: smartquailstage/qnd41appk8s/.github/workflows/qnd41appk8s_test.yaml@main
+  Docker_qnd41:
+    runs-on: ubuntu-latest
+    needs: [qnd41appk8s_test]
+    env:
+      DJANGO_SECRET_KEY: test-key-not-good
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3 
+    - name: Login to Docker Hub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKER_HUB_USERNAME }}
+        password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+    - name: Build container image
+      working-directory: ./qnd41_docker
+      run: | 
+        docker build -f Dockerfile \
+            -t smartquail/qnd41app:latest \
+            -t smartquail/qnd41app:${GITHUB_SHA::2}-${GITHUB_RUN_ID::2} \
+            .
+    - name: Push Image
+      run: | 
+        docker push smartquail/qnd41app --all-tags
+   
+
+       
+
+   
