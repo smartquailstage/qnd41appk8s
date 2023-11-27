@@ -57,12 +57,15 @@ Configuration.configure(
 
 INSTALLED_APPS = [
     'baton',
+    'widget_tweaks',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'wagtailmenus',
+    'wagtail_localize.locales',
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
     'wagtail.embeds',
@@ -73,11 +76,16 @@ INSTALLED_APPS = [
     'wagtail.images',
     'wagtail.search',
     'wagtail.admin',
+    'wagtail.contrib.settings',
+    'wagtail.contrib.routable_page',
     'social_django',
+    'webapp',
     'wagtail',
+    
     'modelcluster',
     'taggit',
     'rosetta',
+    
 ]
 
 MIDDLEWARE = [

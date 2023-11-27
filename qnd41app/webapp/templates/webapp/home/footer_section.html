@@ -1,0 +1,85 @@
+{% load i18n wagtailcore_tags wagtailimages_tags %}
+{% load widget_tweaks %}
+{% load webapp_0_tags %}
+{% load static %}
+{% load menu_tags %}
+  
+  
+  <!--=== Footer Start ===-->
+  <footer class="footer" id="footer-fixed">
+    <div class="footer-main">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-6 col-md-4">
+            <div class="widget widget-text">
+              <div class="logo logo-footer"><a href="{% slugurl 'home' %}"> <img class="logo logo-display" src="{% static 'img/logo_smartquailWhite.png' %}" alt=""></a> </div>
+              <p>{{ page.bio | richtext }}</p>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-2">
+            <div class="widget widget-links">
+              {% workwithus_menus as menus %}
+              {% for menu in menus %}
+              <h5 class="widget-title">{{ menu.heading }}</h5>
+              <ul>
+              {% flat_menu menu.handle template="webapp/index/footer/workwithus.html" %}
+              </ul>
+              {% endfor %}
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-2">
+            <div class="widget widget-links">
+              {% usefullinks_menus as menus %}
+              {% for menu in menus %}
+              <h5 class="widget-title">{{menu.heading}}</h5>
+              <ul>
+              {% flat_menu menu.handle template="webapp/index/footer/usefullinks.html" %}
+              </ul>
+              {% endfor %}
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-4">
+            <div class="widget widget-text widget-links">
+              <h5 class="widget-title">{% trans 'Contact Us' %}</h5>
+              <ul>
+                <li> <i class="icofont icofont-google-map"></i> Francisco Salazar E14-19, Quito-Ecuador </li>
+                <li> <i class="icofont icofont-iphone"></i> <a href="https://api.whatsapp.com/send?phone=593963521262">+593 963 52162</a> </li>
+                <li> <i class="icofont icofont-mail"></i> <a href="mailto:info@smartquail.io">info@smartquail.io</a> </li>
+                <li> <i class="icofont icofont-globe"></i> <a href="{% slugurl 'home' %}">www.smartquail.io</a> </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 col-xs-12">
+            <ul class="social-media">
+              <li><img src="{% static 'img/logo.png' %}" width="35px"></li>
+              {% if settings.webapp.SocialMediaSettings.facebook %}
+              <li> <a href="{{ settings.webapp.SocialMediaSettings.facebook}}"><i class="icofont icofont-facebook"></i></a> </li>
+              {% endif %}
+              {% if settings.webapp.SocialMediaSettings.twitter %}
+              <li> <a href="{{ settings.webapp.SocialMediaSettings.twitter }}"><i class="icofont icofont-twitter"></i></a> </li>
+              {% endif %}
+              {% if settings.webapp.SocialMediaSettings.linkedin %}
+              <li> <a href="{{ settings.webapp.SocialMediaSettings.linkedin}}"><i class="icofont icofont-linkedin"></i></a> </li>
+              {% endif %}
+              {% if settings.webapp.SocialMediaSettings.youtube %}
+              <li> <a href="{{ settings.webapp.SocialMediaSettings.youtube }}"><i class="icofont icofont-youtube"></i></a> </li>
+              {% endif %}
+              {% if settings.webapp.SocialMediaSettings.instagram %}
+              <li> <a href="{{ settings.webapp.SocialMediaSettings.instagram  }}"><i class="icofont icofont-instagram "></i></a> </li>
+              {% endif %}
+            </ul>
+          </div>
+          <div class="col-md-6 col-xs-12">
+            <div class="copy-right text-right">© 2023 SmartQuail.S.A.S All rights reserved</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!--=== Footer End ===-->

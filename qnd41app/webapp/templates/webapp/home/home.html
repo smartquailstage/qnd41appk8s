@@ -1,0 +1,21 @@
+{% extends "webapp/base.html" %}
+{% load i18n wagtailcore_tags wagtailimages_tags %}
+{% load widget_tweaks %}
+{% load static %}
+{% load menu_tags %}
+
+{% block content %}
+
+{% main_menu template="webapp/home//header.html" %}
+
+{% include 'webapp/home/slider_section.html' %}
+{% include 'webapp/home/callout.html' %}
+{% include 'webapp/home/porfolio_section.html' %}
+{% include 'webapp/home/customerscounter_section.html' %}
+{% include 'webapp/home/OurTeam_section.html' %}
+{% include 'webapp/home/partners.html' %}
+{% include 'webapp/home/callacction_section.html' %}
+{% include 'webapp/home/footer_section.html' %}
+
+
+{% endblock %}

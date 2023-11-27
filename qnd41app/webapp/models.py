@@ -1,0 +1,273 @@
+import datetime
+from django.db import models
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.utils.functional import cached_property
+from django.http import Http404
+from modelcluster.fields import ParentalKey
+from modelcluster.tags import ClusterTaggableManager
+from taggit.models import Tag as TaggitTag
+from taggit.models import TaggedItemBase
+from wagtail.admin.panels import ( FieldPanel, FieldRowPanel,InlinePanel,MultiFieldPanel,PageChooserPanel,)
+from streams import blocks
+from wagtail.models import Page,Orderable
+from wagtail.snippets.models import register_snippet
+from wagtail.fields import StreamField, RichTextField
+from wagtail.contrib.routable_page.models import RoutablePageMixin, route
+from wagtail.search import index
+from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField,FORM_FIELD_CHOICES, AbstractForm
+from wagtail.contrib.forms.panels import FormSubmissionsPanel
+
+from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
+from django.urls import reverse
+from wagtail.images.blocks import ImageChooserBlock
+from wagtail.contrib.forms.forms import FormBuilder
+from wagtail.images.fields import WagtailImageField
+from wagtail.models import Collection
+import json
+from os.path import splitext
+from django.core.serializers.json import DjangoJSONEncoder
+from wagtail.images import get_image_model
+
+
+
+class Category(models.Model):
+    name = models.CharField(max_length=200,
+                            db_index=True)
+    slug = models.SlugField(max_length=200,
+                            unique=True)
+
+    class Meta:
+        ordering = ('name',)
+        verbose_name = 'category'
+        verbose_name_plural = 'categories'
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+            return reverse('shop:product_list_by_category',
+                           args=[self.slug])
+
+
+class Product(models.Model):
+    category = models.ForeignKey(Category,
+                                 related_name='products',
+                                 on_delete=models.CASCADE)
+    name = models.CharField(max_length=200, db_index=True)
+    slug = models.SlugField(max_length=200, db_index=True)
+    image = models.ImageField(upload_to='products/%Y/%m/%d',
+                              blank=True)
+    description = models.TextField(blank=True)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    available = models.BooleanField(default=True)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ('name',)
+        index_together = (('id', 'slug'),)
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+            return reverse('shop:product_detail',
+                           args=[self.id, self.slug])
+    
+
+# pagina de inicio
+class consultashome(AbstractFormField):
+    page = ParentalKey('home', on_delete=models.CASCADE, related_name='form_fields')
+
+class home(AbstractEmailForm):
+    # Empieza Barner de Inicio
+    template = "webapp/home/home.html"
+    #cliente_Navbar = RichTextField(blank=True,verbose_name='Cliente-url')
+    
+   # banner_title1 = RichTextField(blank=True,verbose_name='Titulo del primer banner ')
+   # banner_info1 = RichTextField(blank=True,verbose_name='Informacion del primer banner ')
+   # banner_title2 = RichTextField(blank=True,verbose_name='Titulo del segundo banner ')
+   # banner_info2 = RichTextField(blank=True,verbose_name='Informacion del segundo banner ')
+   # banner_title3 = RichTextField(blank=True,verbose_name='Titulo del tercer banner ')
+   # banner_info3 = RichTextField(blank=True,verbose_name='Informacion del tercer banner ')
+
+    # Empieza Banner de sliders
+    bio = RichTextField(blank=True,verbose_name='reseña bibliografica')
+
+    banner_title4 = RichTextField(blank=True,verbose_name='Titulo de galeria-1 ')
+    TS_info1 = models.CharField(max_length=150, null=True, blank=True,verbose_name='Subtitulo info')
+    info1 = models.CharField(max_length=150, null=True, blank=True,verbose_name='info')
+    banner_title5 = RichTextField(blank=True,verbose_name='Titulo de galeria-2  ')
+    TS_info2 = models.CharField(max_length=150, null=True, blank=True,verbose_name='Subtitulo-2 info')
+    info2 = models.CharField(max_length=150, null=True, blank=True,verbose_name='info-2')
+    banner_title6 = RichTextField(blank=True,verbose_name='Titulo de galeria-3  ')
+    TS_info3 = models.CharField(max_length=150, null=True, blank=True,verbose_name='Subtitulo-3 info')
+    info3 = models.CharField(max_length=150, null=True, blank=True,verbose_name='info-3')
+    banner_title7 = RichTextField(blank=True,verbose_name='Titulo de galeria-4  ')
+    TS_info4 = models.CharField(max_length=150, null=True, blank=True,verbose_name='Subtitulot-4 info')
+    info4 = models.CharField(max_length=150, null=True, blank=True,verbose_name='info-4')
+    banner_title8 = RichTextField(blank=True,verbose_name='Titulo de galeria-5  ')
+    TS_info5 = models.CharField(max_length=150, null=True, blank=True,verbose_name='Subtitulo-5 info')
+    info5 = models.CharField(max_length=150, null=True, blank=True,verbose_name='info-5')
+    banner_title9 = RichTextField(blank=True,verbose_name='Titulo de galeria-6  ')
+    TS_info6 = models.CharField(max_length=150, null=True, blank=True,verbose_name='Subtitulo-6 info')
+    info6 = models.CharField(max_length=150, null=True, blank=True,verbose_name='info-6')
+
+
+    # Empieza Banner de callout
+    banner_title10 = RichTextField(blank=True,verbose_name='we improve')
+    info7 = models.CharField(max_length=150, null=True, blank=True,verbose_name='IT business analytics')
+    info8 = models.CharField(max_length=150, null=True, blank=True,verbose_name='IT business cloud DevOps')
+    info9 = models.CharField(max_length=150, null=True, blank=True,verbose_name='IT business Media')
+    
+    # Empieza Banner de Products
+
+  
+    product_1 = models.CharField(max_length=150, null=True, blank=True,verbose_name='Product-1')
+    product_description_1 = models.CharField(max_length=150, null=True, blank=True,verbose_name='Descripcion Product-1')
+    product_2 = models.CharField(max_length=150, null=True, blank=True,verbose_name='Product-2')
+    product_description_2 = models.CharField(max_length=150, null=True, blank=True,verbose_name='Descripcion Product-2')
+    product_3 = models.CharField(max_length=150, null=True, blank=True,verbose_name='Product-3')
+    product_description_3 = models.CharField(max_length=150, null=True, blank=True,verbose_name='Descripcion Product-3')
+    product_4 = models.CharField(max_length=150, null=True, blank=True,verbose_name='Product-4')
+    product_description_4 = models.CharField(max_length=150, null=True, blank=True,verbose_name='Descripcion Product-4')
+    product_5 = models.CharField(max_length=150, null=True, blank=True,verbose_name='Product-5')
+    product_description_5 = models.CharField(max_length=150, null=True, blank=True,verbose_name='Descripcion Product-5')
+    product_6 = models.CharField(max_length=150, null=True, blank=True,verbose_name='Product-6')
+    product_description_6 = models.CharField(max_length=150, null=True, blank=True,verbose_name='Descripcion Product-6')
+    # Banner contador
+    numero_coffe = models.IntegerField( null=True)
+    numero_experiencia =  models.IntegerField( null=True)
+    numero_horas = models.IntegerField( null=True)
+    numero_wins = models.IntegerField(null=True)
+
+
+    team_1 = models.CharField(max_length=150, null=True, blank=True,verbose_name='team-1')
+    team_descrp_1 = models.CharField(max_length=150, null=True, blank=True,verbose_name='team descripcion-1')
+    team_2 = models.CharField(max_length=150, null=True, blank=True,verbose_name='team-2')
+    team_descrp_2 = models.CharField(max_length=150, null=True, blank=True,verbose_name='team descripcion-2')
+    team_3 = models.CharField(max_length=150, null=True, blank=True,verbose_name='team-3')
+    team_descrp_3 = models.CharField(max_length=150, null=True, blank=True,verbose_name='team descripcion-3')
+    team_4 = models.CharField(max_length=150, null=True, blank=True,verbose_name='team-4')
+    team_descrp_4 = models.CharField(max_length=150, null=True, blank=True,verbose_name='team descripcion-4')
+
+    banner_title = models.CharField(max_length=150, null=True, blank=True,verbose_name='Call Action Title')
+    slogan = models.CharField(max_length=150, null=True, blank=True,verbose_name='slogan')
+    slogan_descriptcion = models.CharField(max_length=150, null=True, blank=True,verbose_name='slogan Description')
+    
+
+
+    custom_title = models.CharField(max_length=100,blank=True,null=True,help_text="Reescribe el  Titulo de la publicacion ")
+
+
+    
+    # Campos de consulta
+
+    consulta= RichTextField(blank=True,verbose_name='Mensaje para que nos consulten por el formulario')
+    thank_you_text = RichTextField(blank=True)
+    # galeria de imagenes barner de presentacion
+
+    content_panels = AbstractEmailForm.content_panels + Page.content_panels + [
+
+
+    #Panel sliders
+        FieldPanel('bio', classname="full"),
+        FieldPanel('banner_title4', classname="full"),
+        FieldPanel('TS_info1', classname="full"),
+        FieldPanel('info1', classname="full"),
+        FieldPanel('banner_title5', classname="full"),
+        FieldPanel('TS_info2', classname="full"),
+        FieldPanel('info2', classname="full"),
+        FieldPanel('banner_title6', classname="full"),
+        FieldPanel('TS_info3', classname="full"),
+        FieldPanel('info3', classname="full"),
+        FieldPanel('banner_title7', classname="full"),
+        FieldPanel('TS_info4', classname="full"),
+        FieldPanel('info4', classname="full"),
+        FieldPanel('banner_title8', classname="full"),
+        FieldPanel('TS_info5', classname="full"),
+        FieldPanel('info5', classname="full"),
+        FieldPanel('banner_title9', classname="full"),
+        FieldPanel('TS_info6', classname="full"),
+        FieldPanel('info6', classname="full"),
+        FieldPanel('banner_title10', classname="full"),
+        FieldPanel('info7', classname="full"),
+        FieldPanel('info8', classname="full"),
+        FieldPanel('info9', classname="full"),
+
+
+        FieldPanel('product_1', classname="full"),
+        FieldPanel('product_description_1', classname="full"),
+        FieldPanel('product_2', classname="full"),
+        FieldPanel('product_description_2', classname="full"),
+        FieldPanel('product_3', classname="full"),
+        FieldPanel('product_description_3', classname="full"),
+        FieldPanel('product_4', classname="full"),
+        FieldPanel('product_description_4', classname="full"),
+        FieldPanel('product_5', classname="full"),
+        FieldPanel('product_description_5', classname="full"),
+        FieldPanel('product_6', classname="full"),
+        FieldPanel('product_description_6', classname="full"),
+        FieldPanel('numero_coffe', classname="full"),
+        FieldPanel('numero_experiencia', classname="full"),
+        FieldPanel('numero_horas', classname="full"),
+        FieldPanel('numero_wins', classname="full"),
+        FieldPanel('team_1', classname="full"),
+        FieldPanel('team_descrp_1', classname="full"),
+        FieldPanel('team_2', classname="full"),
+        FieldPanel('team_descrp_2', classname="full"),
+        FieldPanel('team_3', classname="full"),
+        FieldPanel('team_descrp_3', classname="full"),
+        FieldPanel('team_4', classname="full"),
+        FieldPanel('team_descrp_4', classname="full"),
+        FieldPanel('banner_title', classname="full"),
+        FieldPanel('slogan', classname="full"),
+        FieldPanel('slogan_descriptcion', classname="full"),
+
+
+#panel 
+        FieldPanel('consulta', classname="full"),
+
+        InlinePanel('galleria', label="Imagen de Fondo Barner"),
+        FormSubmissionsPanel(),
+        InlinePanel('form_fields', label="consultashome"),
+        FieldPanel('thank_you_text', classname="full"),
+        MultiFieldPanel([
+            FieldRowPanel([
+                FieldPanel('from_address', classname="col6"),
+                FieldPanel('to_address', classname="col6"),
+            ]),
+            FieldPanel('subject'),
+        ], "Email"),
+#Panel capo de noticas
+        FieldPanel("custom_title"),
+    ]
+
+
+
+class GaleriaHome(Orderable):
+    page = ParentalKey(home, on_delete=models.CASCADE, related_name='galleria')
+    logo = models.ForeignKey('wagtailimages.Image',null=True,blank=True,on_delete=models.SET_NULL,related_name='+',verbose_name='Logotipo SmartQuail')
+    profile_pic = models.ForeignKey('wagtailimages.Image',null=True,blank=True,on_delete=models.SET_NULL,related_name='+',verbose_name='Foto de perfil')
+    image = models.ForeignKey('wagtailimages.Image',null=True,blank=True,on_delete=models.SET_NULL,related_name='+',verbose_name='Imagen Slide Banner 1')
+    image_2 = models.ForeignKey('wagtailimages.Image',null=True,blank=True,on_delete=models.SET_NULL,related_name='+',verbose_name='Imagen Slide Banner 2')
+    image_3 = models.ForeignKey('wagtailimages.Image',null=True,blank=True,on_delete=models.SET_NULL,related_name='+',verbose_name='Imagen Slide Banner 3')
+    image_4 = models.ForeignKey('wagtailimages.Image',null=True,blank=True,on_delete=models.SET_NULL,related_name='+',verbose_name='Imagen Slide Banner 4')
+    image_5 = models.ForeignKey('wagtailimages.Image',null=True,blank=True,on_delete=models.SET_NULL,related_name='+',verbose_name='Imagen Slide Banner 5')
+    image_6 = models.ForeignKey('wagtailimages.Image',null=True,blank=True,on_delete=models.SET_NULL,related_name='+',verbose_name='Imagen Slide Banner 6')
+
+
+    panels = [
+        FieldPanel('logo'),
+        FieldPanel('profile_pic'),
+        FieldPanel('image'),
+        FieldPanel('image_2'),
+        FieldPanel('image_3'),
+        FieldPanel('image_4'),
+        FieldPanel('image_5'),
+        FieldPanel('image_6'),
+
+    ]
+
+
+

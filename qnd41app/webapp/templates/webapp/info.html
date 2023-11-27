@@ -1,0 +1,151 @@
+{% extends "webapp/base.html" %}
+{% load i18n wagtailcore_tags wagtailimages_tags %}
+{% load widget_tweaks %}
+{% load webapp_0_tags %}
+{% load static %}
+{% load menu_tags %}
+
+{% block content %}
+{% for item in page.galleria.all %}
+{% image item.profile_pic scale-100 as s1 %}
+<style>
+   .portfolio-cover-bg {
+  background-image: url("{{ s1.url }}");
+}
+</style>
+{% endfor %}
+{% main_menu template="webapp/home//header.html" %}
+<!--=== Wrapper Start ======-->
+<div class="wrapper">
+
+  <!--=== Header Start ======-->
+
+ 
+  <!--=== page-title-section start ===-->
+  <section class="title-hero-bg portfolio-cover-bg  data-stellar-background-ratio="0.2">
+    <div class="container">
+      <div class="page-title text-center">
+        <h1>{{page.title}}</h1>
+      </div>
+    </div>
+  </section>
+ 
+  <!--=== page-title-section end ===-->
+
+  <!--=== Portfolio Start ======-->
+  <section class="pt-100 pt-100">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-9 portfolio-left">
+          <div class="portfolio-slider owl-carousel">
+            {% for item in page.galleria.all %}
+            {% image item.image scale-100 as s1 %}
+            <div class="item"><img class="img-responsive" src="{{ s1.url }}" alt=""/></div>
+            {% image item.image_2 scale-100 as s2 %}
+            <div class="item"><img class="img-responsive" src="{{ s2.url }}" alt=""/></div>
+            {% image item.image_3 scale-100 as s3 %}
+            <div class="item"><img class="img-responsive" src="{{ s3.url }}" alt=""/></div>
+            {% endfor %}
+          </div>
+          <h3>{{page.banner_title9|richtext }}</h3>
+          <h4>{{page.TS_info6 }}</h4>
+          <h3>{{page.banner_title9|richtext }}</h3>
+          <h4>{{page.TS_info6 }}</h4>
+          <h3>{{page.banner_title9|richtext }}</h3>
+          <h4>{{page.TS_info6 }}</h4>
+          <p class="mt-20" style="text-align: justify;">{{page.info_title9|richtext}}.</p>
+          {% if settings.webapp.GlobalLinksSettings.start_project_SBM %}
+          <p class="mt-50"><a href="{{ settings.webapp.GlobalLinksSettings.start_project_SBM}}" class="btn btn-color btn-rounded">{% trans 'Start a Project' %}</a></p>
+          {% endif %}
+        </div>
+        <!--=== Left Side End ===-->
+        <div class="col-md-3 portfolio-right">
+        
+          <ul class="project-detail-box">
+            {% for item in page.galleria.all %}
+            {% image item.logo scale-100 as s1 %}
+        <img src="{{ s1.url }}" alt=""/>
+        {% endfor %}
+        <ul class="project-detail-box">
+          <li><strong>{% trans 'Product type' %}: </strong>{{page.TS_info1}}</li>
+          <li><strong>{% trans 'Product plan' %}: </strong>{{page.TS_info2}}</li>
+          <li><strong>{% trans 'Product cost' %}: </strong>{{page.info3}}</li>
+        </ul>
+          </ul>
+          <ul class="project-type-list">
+            <li><i class="icofont icofont-diamond"></i><strong>{% trans 'Chief Officer' %} :</strong><a href="#">{{page.TS_info4}}</a></li>
+            <li><i class="icofont icofont-light-bulb"></i><strong>{% trans 'Project manager' %} :</strong><a href="#">  {{page.info4}}</a></li>
+            <li><i class="icofont icofont-layers"></i><strong>{% trans  'Content manager' %} :</strong><a href="#"> {{ page.TS_info5 }}  </a></li>
+          </ul>
+          <div class="post-controls">
+            <div class="post-share">
+              <ul>
+                {% if settings.webapp.SocialMediaSettings.facebook %}
+                <li><a href="{{ settings.webapp.SocialMediaSettings.facebook }}" target="_blank"><i class="icofont icofont-facebook"></i></a></li>
+                {% endif %}
+                {% if settings.webapp.SocialMediaSettings.instagram %}
+                <li><a href="{{ settings.webapp.SocialMediaSettings.instagram }}" target="_blank"><i class="icofont icofont-instagram"></i></a></li>
+                {% endif %}
+                {% if settings.webapp.SocialMediaSettings.twitter %}
+                <li><a href="{{ settings.webapp.SocialMediaSettings.twitter }}" target="_blank"><i class="icofont icofont-twitter"></i></a></li>
+                {% endif %}
+                {% if settings.webapp.SocialMediaSettings.linkedin %}
+                <li><a href="{{ settings.webapp.SocialMediaSettings.linkedin }}" target="_blank"><i class="icofont icofont-linkedin"></i></a></li>
+                {% endif %}
+                {% if settings.webapp.SocialMediaSettings.behance %}
+                <li><a href="{{ settings.webapp.SocialMediaSettings.behance }}" target="_blank"><i class="icofont icofont-behance"></i></a></li>
+                {% endif %}
+                {% if settings.webapp.SocialMediaSettings.youtube %}
+                <li><a href="{{ settings.webapp.SocialMediaSettings.youtube }}" target="_blank"><i class="icofont icofont-youtube"></i></a></li>
+                {% endif %}
+                <li><a href="https://api.whatsapp.com/send?phone=593984534954" target="_blank"><i class="icofont icofont-whatsapp"></i></a></li>
+                <li><a href="mailto:info@juansilvaphoto.com" target="_blank"><i class="icofont icofont-envelope"></i></a></li>
+
+              </ul>
+            </div>
+          </div>
+          <p class="mt-30"> {{page.bio2|richtext }} </p>
+        </div>
+        <!--=== Right Side End ===-->
+      </div>
+    </div>
+  </section>
+  <!--=== Portfolio End ======-->
+
+  <!--=== Call to Action Start ======-->
+  <section class="pt-50 pb-50 default-bg">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-5">
+          <div class="cta-heading-left">
+            <p class="subtitle mt-20">{% trans 'careers' %}</p>
+            <h3>{% trans 'Lets write your story, together.' %}</h3>
+          </div>
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-6">
+          <div class="cta-heading-right">
+            <p class="mt-20 content-text">{{page.banner_title12|richtext }}</p>
+            {% if settings.webapp.GlobalLinksSettings.contacus %}
+            <p class="mt-50"><a href="{{ settings.webapp.GlobalLinksSettings.contacus }}" class="btn btn-rounded btn-white">Contact Us</a></p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--=== Call to Action End ======-->
+
+  <!--=== Footer Start ======-->
+
+  <!--=== Footer End ======-->
+
+  <!--=== GO TO TOP  ===-->
+  <a href="single-portfolio.html#" id="back-to-top" title="Back to top">&uarr;</a>
+  <!--=== GO TO TOP End ===-->
+
+</div>
+<!--=== Wrapper End ======-->
+{% include 'webapp/home/footer_section.html' %}
+
+{% endblock %}
