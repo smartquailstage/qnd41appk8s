@@ -2,7 +2,7 @@ django==4.2.6
 django-dotenv
 django-baton
 
-wagtail==5.1.3
+wagtail==5.2.1
 
 django-social-share
 wagtailgmaps
@@ -11,7 +11,7 @@ wagalytics==1.3
 requests
 celery
 #gunicorn
-uWSGI==2.0.22
+uWSGI==2.0.23
 redis
 django-dotenv
 psycopg2-binary
