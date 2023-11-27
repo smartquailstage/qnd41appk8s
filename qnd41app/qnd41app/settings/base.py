@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
     'wagtailmenus',
     'wagtail_localize.locales',
     'wagtail.contrib.forms',
@@ -81,7 +82,18 @@ INSTALLED_APPS = [
     'social_django',
     'webapp',
     'wagtail',
-    
+    #smartquailApps
+    #smarbusinessmedia
+    'sbmshop',
+    #smartbusinesslaw
+    'sblcart',
+    'sblshop',
+    #smartbusinessanalitycs
+    'sbashop',
+    'sbacart',
+    #smartbusinesstech
+    'sbtshop',
+
     'modelcluster',
     'taggit',
     'rosetta',
