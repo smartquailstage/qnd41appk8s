@@ -1,18 +1,36 @@
+{% load i18n wagtailcore_tags wagtailimages_tags %}
+{% load widget_tweaks %}
+{% load webapp_0_tags %}
+{% load static %}
+{% load menu_tags %}
+
 <section class="pt-50 pb-50 white-bg">
     <div class="container">
       <div class="row">
-        <div id="client-slider" class="owl-carousel">
-          <div class="client-logo"> <img class="img-responsive" src="http://www.incognitothemes.com/scoda/assets/images/clients/1.png" alt="01"/> </div>
-          <div class="client-logo"> <img class="img-responsive" src="http://www.incognitothemes.com/scoda/assets/images/clients/2.png" alt="02"/> </div>
-          <div class="client-logo"> <img class="img-responsive" src="http://www.incognitothemes.com/scoda/assets/images/clients/3.png" alt="03"/> </div>
-          <div class="client-logo"> <img class="img-responsive" src="http://www.incognitothemes.com/scoda/assets/images/clients/4.png" alt="04"/> </div>
-          <div class="client-logo"> <img class="img-responsive" src="http://www.incognitothemes.com/scoda/assets/images/clients/5.png" alt="05"/> </div>
-          <div class="client-logo"> <img class="img-responsive" src="http://www.incognitothemes.com/scoda/assets/images/clients/6.png" alt="06"/> </div>
-          <div class="client-logo"> <img class="img-responsive" src="http://www.incognitothemes.com/scoda/assets/images/clients/7.png" alt="07"/> </div>
-          <div class="client-logo"> <img class="img-responsive" src="http://www.incognitothemes.com/scoda/assets/images/clients/8.png" alt="08"/> </div>
-          <div class="client-logo"> <img class="img-responsive" src="http://www.incognitothemes.com/scoda/assets/images/clients/9.png" alt="09"/> </div>
-          <div class="client-logo"> <img class="img-responsive" src="http://www.incognitothemes.com/scoda/assets/images/clients/10.png" alt="10"/> </div>
+        {% for item in page.galleria_contacus.all %}
+        <div id="client-slider" class="owl-carousel"> 
+          {% image item.image_17 scale-100 as l1 %}
+          <div class="client-logo"> <img class="img-responsive" src="{{ l1.url }}" alt="01"/> </div>
+          {% image item.image_18 scale-100 as l2 %}
+          <div class="client-logo"> <img class="img-responsive" src="{{ l2.url }}" alt="02"/> </div>
+          {% image item.image_19 scale-100 as l3 %}
+          <div class="client-logo"> <img class="img-responsive" src="{{ l3.url }}" alt="03"/> </div>
+          {% image item.image_20 scale-100 as l4 %}
+          <div class="client-logo"> <img class="img-responsive" src="{{ l4.url }}" alt="04"/> </div>
+          {% image item.image_21 scale-100 as l5 %}
+          <div class="client-logo"> <img class="img-responsive" src="{{ l5.url }}" alt="05"/> </div>
+          {% image item.image_22 scale-100 as l6 %}
+          <div class="client-logo"> <img class="img-responsive" src="{{ l6.url }}" alt="06"/> </div>
+          {% image item.image_23 scale-100 as l7 %}
+          <div class="client-logo"> <img class="img-responsive" src="{{ l7.url }}" alt="07"/> </div>
+          {% image item.image_24 scale-100 as l8 %}
+          <div class="client-logo"> <img class="img-responsive" src="{{ l8.url }}" alt="08"/> </div>
+          {% image item.image_25 scale-100 as l9 %}
+          <div class="client-logo"> <img class="img-responsive" src="{{ l9.url }}" alt="09"/> </div>
+          {% image item.image_26 scale-100 as l10 %}
+          <div class="client-logo"> <img class="img-responsive" src="{{ l10.url }}" alt="10"/> </div>
         </div>
+        {% endfor %}
       </div>
     </div>
   </section>

@@ -132,7 +132,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'qnd41app.wsgi.application'
 
-
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale/'),
+)
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
@@ -192,6 +194,8 @@ LOCALE_PATHS = (
 
 from django.utils.translation import gettext_lazy as _
 
+#WAGTAIL SETTINGS:
+
 WAGTAIL_CONTENT_LANGUAGES = LANGUAGES = [
     ('en', _("English")),
     ('fr', _("French")),
@@ -199,6 +203,14 @@ WAGTAIL_CONTENT_LANGUAGES = LANGUAGES = [
 ]
 
 WAGTAIL_I18N_ENABLED = True
+
+WAGTAILSEARCH_BACKENDS = {
+    'default': {
+        'BACKEND': 'wagtail.search.backends.database',
+    }
+}
+
+WAGTAILADMIN_BASE_URL =  os.environ.get('DOMAINS')
 
 USE_L10N = True
 
