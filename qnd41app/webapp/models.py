@@ -72,16 +72,45 @@ class Product(models.Model):
 
     def get_absolute_url(self):
             return reverse('shop:product_detail',
+      
                            args=[self.id, self.slug])
     
+class commingsoonform(AbstractFormField):
+    page = ParentalKey('commingsoon', on_delete=models.CASCADE, related_name='form_fields')
 
-# pagina de inicio
+class commingsoon(AbstractEmailForm):
+    template = "webapp/home/commingsoon.html"
+    custom_title = models.CharField(max_length=100,blank=True,null=True,help_text="Reescribe el  Titulo de la publicacion ")
+    consulta= RichTextField(blank=True,verbose_name='Mensaje para que nos consulten por el formulario')
+    thank_you_text = RichTextField(blank=True)
+    # galeria de imagenes barner de presentacion
+
+    content_panels = AbstractEmailForm.content_panels + Page.content_panels + [
+        FieldPanel('consulta', classname="full"),
+
+        FormSubmissionsPanel(),
+        InlinePanel('form_fields', label="consultashome"),
+        FieldPanel('thank_you_text', classname="full"),
+        MultiFieldPanel([
+            FieldRowPanel([
+                FieldPanel('from_address', classname="col6"),
+                FieldPanel('to_address', classname="col6"),
+            ]),
+            FieldPanel('subject'),
+        ], "Email"),
+#Panel capo de noticas
+        FieldPanel("custom_title"),
+
+    ]
+
+
 class consultashome(AbstractFormField):
     page = ParentalKey('home', on_delete=models.CASCADE, related_name='form_fields')
 
 class home(AbstractEmailForm):
     # Empieza Barner de Inicio
     template = "webapp/home/home.html"
+    titulo = RichTextField(blank=True,verbose_name='titulo')
     #cliente_Navbar = RichTextField(blank=True,verbose_name='Cliente-url')
     
    # banner_title1 = RichTextField(blank=True,verbose_name='Titulo del primer banner ')
