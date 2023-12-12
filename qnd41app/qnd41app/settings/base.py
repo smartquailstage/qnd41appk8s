@@ -68,6 +68,7 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'wagtailmenus',
     'wagtail_localize.locales',
+    "wagtail_localize",
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
     'wagtail.embeds',
@@ -81,7 +82,7 @@ INSTALLED_APPS = [
     'wagtail.contrib.settings',
     'wagtail.contrib.routable_page',
     'social_django',
-    'webapp',
+    
     'wagtail',
     #smartquailApps
     #smarbusinessmedia
@@ -98,6 +99,7 @@ INSTALLED_APPS = [
     'modelcluster',
     'taggit',
     'rosetta',
+    'webapp',
     
 ]
 
