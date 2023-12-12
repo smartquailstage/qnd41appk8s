@@ -38,6 +38,7 @@ ALLOWED_HOSTS = [os.environ.get("ENV_ALLOWED_HOST")]
 #Nombre del sitio web
 WAGTAIL_SITE_NAME =os.environ.get("WAGTAIL_SITE_NAME")  
 WAGTAILADMIN_BASE_URL =os.environ.get("WAGTAILADMIN_BASE_URL")  
+WAGTAILIMAGES_MAX_UPLOAD_SIZE = 30 * 1024 * 1024   # 15mb
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 BRAINTREE_MERCHANT_ID = os.environ.get('BRAINTREE_M_ID')
