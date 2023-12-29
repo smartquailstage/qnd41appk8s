@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-27 16:26-0500\n"
+"POT-Creation-Date: 2023-12-29 16:27-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
 #: sbacart/templates/detail.html:30 sbacart/templates/sbacart/detail.html:30
 #: sblcart/templates/sbtcart/detail.html:30
 msgid "Your SmartQuail shopping cart"
@@ -293,7 +294,23 @@ msgstr ""
 msgid "Read More"
 msgstr ""
 
-#: webapp/templates/webapp/createitbusiness/slider_section.html:13
+#: webapp/templates/webapp/createitbusiness/projectform.html:20
+msgid "Our Features"
+msgstr ""
+
+#: webapp/templates/webapp/createitbusiness/projectform.html:39
+msgid "Fill this form "
+msgstr ""
+
+#: webapp/templates/webapp/createitbusiness/projectform.html:40
+msgid "Create Now, your Business Project"
+msgstr ""
+
+#: webapp/templates/webapp/createitbusiness/projectform.html:84
+msgid "Create your Business Project"
+msgstr ""
+
+#: webapp/templates/webapp/createitbusiness/slider_section.html:16
 msgid "Choose your business project"
 msgstr ""
 

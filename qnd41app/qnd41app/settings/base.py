@@ -67,8 +67,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'wagtailmenus',
-    'wagtail_localize.locales',
-    "wagtail_localize",
+    #'wagtail_localize.locales',
+    #"wagtail_localize",
+    'wagtail.locales',
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
     'wagtail.embeds',
@@ -98,8 +99,8 @@ INSTALLED_APPS = [
 
     'modelcluster',
     'taggit',
-    'rosetta',
     'webapp',
+    'rosetta',
     
 ]
 
@@ -128,6 +129,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.i18n',
             ],
         },
     },
@@ -204,6 +206,7 @@ WAGTAIL_CONTENT_LANGUAGES = LANGUAGES = [
     ('fr', _("French")),
     ('es', _("Spanish")),
 ]
+
 
 WAGTAIL_I18N_ENABLED = True
 

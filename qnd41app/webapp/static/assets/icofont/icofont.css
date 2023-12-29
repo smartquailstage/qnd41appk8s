@@ -2243,6 +2243,11 @@ url("https://nyc3.digitaloceanspaces.com/qnd41appk8s-bucket/static/assets/icofon
   content: "\e9b9";
 }
 
+
+.icofont-multilingual:before
+{
+  content: "\13b6f";
+}
 .icofont-under-construction:before
 {
   content: "\e9ba";

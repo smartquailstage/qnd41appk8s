@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-27 16:26-0500\n"
+"POT-Creation-Date: 2023-12-29 16:27-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,14 +17,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-#: qnd41app/settings/base.py:198
+
+#: qnd41app/settings/base.py:203
 msgid "English"
 msgstr ""
 
-#: qnd41app/settings/base.py:199
+#: qnd41app/settings/base.py:204
 msgid "French"
 msgstr ""
 
-#: qnd41app/settings/base.py:200
+#: qnd41app/settings/base.py:205
 msgid "Spanish"
 msgstr ""
