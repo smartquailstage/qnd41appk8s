@@ -2244,7 +2244,7 @@ url("https://nyc3.digitaloceanspaces.com/qnd41appk8s-bucket/static/assets/icofon
 }
 
 
-.icofont-multilingual::before
+.icofont-multilingual:before
 {
   content: "\13b6f";
 }
