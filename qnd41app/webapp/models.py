@@ -559,10 +559,7 @@ class createitbusiness(AbstractEmailForm):
     product_6 = models.CharField(max_length=150, null=True, blank=True,verbose_name='Product-6')
     product_description_6 = models.CharField(max_length=150, null=True, blank=True,verbose_name='Descripcion Product-6')
     # Banner contador
-    numero_coffe = models.IntegerField( null=True)
-    numero_experiencia =  models.IntegerField( null=True)
-    numero_horas = models.IntegerField( null=True)
-    numero_wins = models.IntegerField(null=True)
+
 
 
     team_1 = models.CharField(max_length=150, null=True, blank=True,verbose_name='team-1')
