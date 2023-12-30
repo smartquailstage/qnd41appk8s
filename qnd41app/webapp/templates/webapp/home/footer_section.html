@@ -12,7 +12,7 @@
         <div class="row">
           <div class="col-sm-6 col-md-4">
             <div class="widget widget-text">
-              <div class="logo logo-footer"><a href="{% slugurl 'home' %}"> <img class="logo logo-display" src="{% static 'img/logo_smartquailWhite.png' %}" alt=""></a> </div>
+              <div class="logo logo-footer"><a href="{% slugurl 'home' %}"> <img class="logo logo-display" src="{% static 'img/logo_smartquailWhite.png' %}" alt="" width="200"></a> </div>
               <p>{{ page.bio | richtext }}</p>
             </div>
           </div>
@@ -57,7 +57,7 @@
         <div class="row">
           <div class="col-md-6 col-xs-12">
             <ul class="social-media">
-              <li><img src="{% static 'img/sello.png' %}" width="35px"></li>
+              <li><img src="{% static 'img/sello_final.png' %}" width="35px"></li>
               {% if settings.webapp.SocialMediaSettings.facebook %}
               <li> <a href="{{ settings.webapp.SocialMediaSettings.facebook}}"><i class="icofont icofont-facebook"></i></a> </li>
               {% endif %}
