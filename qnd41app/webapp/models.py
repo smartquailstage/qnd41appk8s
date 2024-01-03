@@ -891,8 +891,37 @@ class Galeriacreateprojectitbusiness(Orderable):
     ]
 
 
+class consultascontact(AbstractFormField):
+    page = ParentalKey('contactus', on_delete=models.CASCADE, related_name='form_fields')
+class contactus(AbstractEmailForm):
 
+    template = "webapp/home/contactus.html"
+    bio = RichTextField(blank=True,verbose_name='rseña bibliografica')
+    custom_title = models.CharField(max_length=100,blank=True,null=True,help_text="Reescribe el  Titulo de la publicacion ")
+    consulta= RichTextField(blank=True,verbose_name='Mensaje para que nos consulten por el formulario')
+    thank_you_text = RichTextField(blank=True)
+    content_panels = AbstractEmailForm.content_panels + Page.content_panels + [
+        FieldPanel('bio', classname="full"),
+        FieldPanel('consulta', classname="full"),
+        InlinePanel('galleria_contactus', label="Imagen de Fondo Barner"),
+        FormSubmissionsPanel(),
+        InlinePanel('form_fields', label="consultas_contactus"),
+        FieldPanel('thank_you_text', classname="full"),
+        MultiFieldPanel([
+            FieldRowPanel([
+                FieldPanel('from_address', classname="col6"),
+                FieldPanel('to_address', classname="col6"),
+            ]),
+            FieldPanel('subject'),
+        ], "Email"),
+#Panel capo de noticas
+        FieldPanel("custom_title"),
+    ]
 
+class GaleriaContactus(Orderable):
+    page = ParentalKey(contactus, on_delete=models.CASCADE, related_name='galleria_contactus')
+    image = models.ForeignKey('wagtailimages.Image',null=True,blank=True,on_delete=models.SET_NULL,related_name='+',verbose_name='Imagen Slide Banner 1')
 
-
-
+    panels = [
+        FieldPanel('image'),
+    ]

@@ -420,3 +420,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CELERY_BROKER_URL = 'redis://localhost:6379/0'
 
 
+EMAIL_HOST= "smtp.gmail.com"
+EMAIL_PORT=  "443"
+#EMAIL_USE_TLS=  "True"
+EMAIL_HOST_USER= "smartquail.info@gmail.com"
+EMAIL_HOST_PASSWORD= "pzmblsxbqyvdzuxz"
+DEFAULT_FROM_EMAIL= "EMAIL_HOST_USER"
+EMAIL_BACKEND= "django.core.mail.backends.smtp.EmailBackend"
+#EMAIL_USE_TLS       = "True"
+#EMAIL_USE_SSL= "False"

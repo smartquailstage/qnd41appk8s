@@ -6,72 +6,101 @@
 {% load menu_tags %}
 
 {% block content %}
+{% for item in page.galleria_contacus.all %}
+{% image item.image scale-100 as s1 %}
+<style>
+  .contact-cover-bg {
+	background-image: url('{{s1.url}}');
+}
+</style>
+{% endfor %}
 
 {% main_menu template="webapp/home//header.html" %}
 
 
-<section class="title-hero-bg contact-cover-bg" data-stellar-background-ratio="0.2">
+
+<section class="title-hero-bg contact-cover-bg"  data-stellar-background-ratio="0.2">
     <div class="container">
       <div class="page-title text-center">
-        <h1>Contact Simple</h1>
-        <h4 class="text-uppercase mt-30 white-color">Customer Support 24 Hours</h4>
+        <h1>{% trans 'Contact us' %}</h1>
+        <h4 class="text-uppercase mt-30 white-color">{% trans 'Customer Support 24 Hours' %}</h4>
       </div>
     </div>
+    
   </section>
+
+  
+
 
     <!--=== Contact Us Start ======-->
     <section class="contact-us dark-bg">
         <div class="container">
           <div class="row">
             <div class="col-md-8">
-              <form name="contact-form" id="contact-form" action="php/contact.php" method="POST">
+              <form action="{% pageurl page %}" method="POST" class="mt-50">
                 <div class="messages"></div>
-                <div class="form-group">
-                  <label class="sr-only" for="name">Name</label>
-                  <input type="text" name="name" class="form-control" id="name" required="required" placeholder="Your Name" data-error="Your Name is Required">
-                  <div class="help-block with-errors mt-20"></div>
-                </div>
-                <div class="form-group">
-                  <label class="sr-only" for="email">Email</label>
-                  <input type="email" name="email" class="form-control" id="email" placeholder="Your Email" required="required" data-error="Please Enter Valid Email">
-                  <div class="help-block with-errors mt-20"></div>
-                </div>
-                <div class="form-group">
-                  <label class="sr-only" for="subject">Subject</label>
-                  <input type="text" name="subject" class="form-control" id="subject" placeholder="Your Subject">
-                </div>
-                <div class="form-group">
-                  <label class="sr-only" for="message">Message</label>
-                  <textarea name="message" class="form-control" id="message" rows="7" placeholder="Your Message" required data-error="Please, Leave us a message"></textarea>
-                  <div class="help-block with-errors mt-20"></div>
-                </div>
-                <button type="submit" name="submit" class="btn btn-color btn-circle">Send Mail</button>
-              </form>
+                {% csrf_token %}
+                {% for hidden_field in form.hidden_fields %}
+                  {{ hidden_field }}
+                {% endfor %}
+              
+                {% if form.non_field_errors %}
+                  <div class="alert alert-danger" role="alert">
+                    {% for error in form.non_field_errors %}
+                      {{ error }}
+                    {% endfor %}
+                  </div>
+                {% endif %}
+              
+                
+                  <div class="form-group">
+                    {% for field in form.visible_fields %}
+                    {{ field.label_tag }}
+              
+                    {% if form.is_bound %}
+                      {% if field.errors %}
+                        {% render_field field class="form-control is-invalid" %}
+                        {% for error in field.errors %}
+                          <div class="invalid-feedback">
+                            {{ error }}
+                          </div>
+                        {% endfor %}
+                      {% else %}
+                        {% render_field field class="form-control is-valid" %}
+                      {% endif %}
+                    {% else %}
+                      {% render_field field class="form-control" %}
+                    {% endif %}
+              
+                    {% if field.help_text %}
+                      <small class="form-text text-muted">{{ field.help_text }}</small>
+          
+                    {% endif %}
+                    {% endfor %} 
+                   
+                  </div>
+                  <button  type="submit"  class="btn btn-color btn-circle wow fadeTop" data-wow-delay="0.4s">{% trans 'Send' %}</button>                
+            </form>
+           
             </div>
             <div class="col-md-4">
-              <h3 class="white-color">Postal Location</h3>
+              <h3 class="white-color">{% trans 'Location' %}</h3>
               <address>
-              PO Box 16122 Toronto Eaton Centre,<br>
-              220 The PATH Toronto, ON M5B 2H1, Canada<br>
-              (+1) 613 555-0105<br>
-              <a href="contact-simple.html#">scoda@example.com</a>
+              Francisco Salazar ,<br>
+              Quito, Ecuador<br>
+              (+593) 9 9635-21262<br>
+              <a href="#">info@smartquail.io</a>
               </address>
-              <h3 class="white-color">Global Location</h3>
-              <address>
-              1025 Hollywood Blvd, Los Angeles<br>
-              (+1) 613 555-0105
-              </address>
-              <h3 class="white-color">Work Timings</h3>
-              <p> <span>Mon - Fri: 10am to 7pm</span> <br>
-                <span>Sat : 8am to 12pm</span> </p>
+              <h3 class="white-color">{% trans 'Global Location' %}</h3>
+              <h3 class="white-color">{% trans 'Work Timings' %}</h3>
+              <p> <span>Mon - Fri: 6am to 24pm</span> <br>
+                <span>Sat : 8am to 24pm</span> </p>
             </div>
           </div>
         </div>
       </section>
       
-      <section class="pt-0 pb-0 map-section">
-        <div id="myMap" class="wide"></div>
-      </section>
+    
       
 {% include 'webapp/home/footer_section.html' %}
 

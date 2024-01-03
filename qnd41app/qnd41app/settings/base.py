@@ -180,15 +180,7 @@ AUTHENTICATION_BACKENDS = [
 
 
 
-#Email setups
-EMAIL_HOST          = os.environ.get('EMAIL_HOST')
-EMAIL_PORT          =  os.environ.get('EMAIL_PORT')
-EMAIL_HOST_USER     = os.environ.get('EMAIL_HOST_USER ')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
-DEFAULT_FROM_EMAIL  = EMAIL_HOST_USER
-EMAIL_BACKEND       = os.environ.get('EMAIL_BACKEND')
-EMAIL_USE_TLS       = True
-EMAIL_USE_SSL       = False
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
@@ -207,6 +199,8 @@ WAGTAIL_CONTENT_LANGUAGES = LANGUAGES = [
     ('es', _("Spanish")),
 ]
 
+WAGTAILFORMS_NOTIFICATION_FROM_EMAIL = 'noreply@example.com'
+WAGTAILFORMS_NOTIFICATION_TEMPLATE = 'forms/notification_email.txt'
 
 WAGTAIL_I18N_ENABLED = True
 
