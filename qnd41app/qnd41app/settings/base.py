@@ -104,6 +104,7 @@ INSTALLED_APPS = [
     'taggit',
     'webapp',
     'rosetta',
+    'qr_code',
     
 ]
 
