@@ -37,7 +37,7 @@ ALLOWED_HOSTS = [os.environ.get("ENV_ALLOWED_HOST")]
 
 #Nombre del sitio web
 WAGTAIL_SITE_NAME =os.environ.get("WAGTAIL_SITE_NAME")  
-WAGTAILADMIN_BASE_URL =os.environ.get("WAGTAILADMIN_BASE_URL")  
+
 WAGTAILIMAGES_MAX_UPLOAD_SIZE = 30 * 1024 * 1024   # 15mb
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
@@ -69,6 +69,7 @@ INSTALLED_APPS = [
     'wagtailmenus',
     #'wagtail_localize.locales',
     #"wagtail_localize",
+    'wagtail.admin',
     'wagtail.locales',
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
@@ -79,7 +80,7 @@ INSTALLED_APPS = [
     'wagtail.documents',
     'wagtail.images',
     'wagtail.search',
-    'wagtail.admin',
+    
     'wagtail.contrib.settings',
     'wagtail.contrib.routable_page',
     'social_django',
@@ -88,6 +89,8 @@ INSTALLED_APPS = [
     #smartquailApps
     #smarbusinessmedia
     'sbmshop',
+    'sbmcart',
+    'sbmorders',
     #smartbusinesslaw
     'sblcart',
     'sblshop',
@@ -178,6 +181,11 @@ AUTHENTICATION_BACKENDS = [
     'social_core.backends.google.GoogleOAuth2',
 ]
 
+CART_SESSION_ID = 'cart'
+SBLCART_SESSION_ID = 'cart'
+SBACART_SESSION_ID = 'cart'
+SBTCART_SESSION_ID = 'cart'
+SBMCART_SESSION_ID = 'cart'
 
 
 
@@ -199,7 +207,7 @@ WAGTAIL_CONTENT_LANGUAGES = LANGUAGES = [
     ('es', _("Spanish")),
 ]
 
-WAGTAILFORMS_NOTIFICATION_FROM_EMAIL = 'noreply@example.com'
+WAGTAILFORMS_NOTIFICATION_FROM_EMAIL = 'info@smartquail.io'
 WAGTAILFORMS_NOTIFICATION_TEMPLATE = 'forms/notification_email.txt'
 
 WAGTAIL_I18N_ENABLED = True

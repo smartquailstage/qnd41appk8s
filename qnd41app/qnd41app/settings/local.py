@@ -1,6 +1,6 @@
 from .base import *
 
-DEBUG=  "0"
+DEBUG=  "1"
 
 ENV_FILE_PATH = BASE_DIR / ".env_local"
 load_dotenv(str(ENV_FILE_PATH))
@@ -14,7 +14,7 @@ DATABASES = {
 }
 
 SITE_ID = 1
-
+WAGTAILADMIN_BASE_URL = "/businessmedia/"
 
 REDIS_HOST=os.environ.get('REDIS_HOST')
 REDIS_PORT=os.environ.get('REDIS_PORT')

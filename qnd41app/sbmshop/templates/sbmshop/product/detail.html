@@ -1,4 +1,4 @@
-{% extends "sbtshop/base.html" %}
+{% extends "sbmshop/base.html" %}
 {% load i18n wagtailcore_tags wagtailimages_tags %}
 {% load static %}
 {% load widget_tweaks %}
@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block content %}
-{% include 'shop/header.html' %}
+{% include 'sbmshop/header.html' %}
 
 <section class="pt-50 pb-50 dark-bg">
   <div class="container">
@@ -41,7 +41,7 @@
           <p><strong>{% trans 'Features' %}</strong> {{ product.description|linebreaks }} </p>
         </div>
         <div class="single-product-qty">
-          <form action="{% url "sbtcart:cart_add" product.id %}" method="post" >
+          <form action="{% url "sbmcart:cart_add" product.id %}" method="post" >
             {% csrf_token %}
             {% for hidden_field in cart_product_form.hidden_fields %}
               {{ hidden_field }}
