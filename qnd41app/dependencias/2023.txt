@@ -32,7 +32,7 @@ django-embed-video
 django-ckeditor
 django-qr-code
 
-kombu==5.2.2
+kombu==5.3.4
 django-parler
 django-localflavor
 django-rosetta
