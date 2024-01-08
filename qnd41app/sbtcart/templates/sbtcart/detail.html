@@ -1,4 +1,4 @@
-{% extends "sblshop/base.html" %}
+{% extends "sbtshop/base.html" %}
 {% load i18n wagtailcore_tags wagtailimages_tags %}
 {% load static %}
 {% load widget_tweaks %}
@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block content %}
-{% include 'shop/header.html' %}
+{% include 'sbtshop/header.html' %}
 
 <section class="pt-50 pb-50 dark-bg">
   <div class="container">
@@ -41,13 +41,13 @@
             
                 <div class="col-md-3 career-category"><span>{% trans 'Subtotal price' %}: ${{ item.total_price }} </span></div>
               <div class="career-details col-md-3"> 
-                <form action="{% url "sblcart:cart_add" product.id %}" method="post">
+                <form action="{% url "sbtcart:cart_add" product.id %}" method="post">
                   {{ item.update_quantity_form.quantity }}
                   {{ item.update_quantity_form.update }}
                   <input type="submit" class="btn btn-color btn-square btn-animate" value="Update">
                   {% csrf_token %}
                 </form>  
-                <a class="btn btn-dark btn-square btn-animate" href="{% url "sblcart:cart_remove" product.id %}">{% trans 'Remove' %}</a>   
+                <a class="btn btn-dark btn-square btn-animate" href="{% url "sbtcart:cart_remove" product.id %}">{% trans 'Remove' %}</a>   
             </div>
            
           </li>
@@ -57,8 +57,8 @@
         <h2 class="mt-80 font-700"> {% trans 'TOTAL PRICE'%}: ${{ cart.get_total_price }}</h2>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eget nisl gravida, interdum nunc quis, faucibus ligula. Nam eu neque nunc. Suspendisse egestas dolor ante, nec tincidunt sem malesuada at. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi vehicula metus sit amet turpis malesuada commodo.</p>
       </div>
-      <a href="{% url "sblshop:product_list" %}" class="btn btn-dark btn-square btn-animate">{% trans 'Continue shopping' %}</a>
-      <a href="{% url "sblorders:order_create" %}" class="btn btn-color btn-square btn-animate">
+      <a href="{% url "sbtshop:product_list" %}" class="btn btn-dark btn-square btn-animate">{% trans 'Continue shopping' %}</a>
+      <a href="{% url "sbtorders:order_create" %}" class="btn btn-color btn-square btn-animate">
         {% trans 'Checkout' %}
       </a>
     </div>

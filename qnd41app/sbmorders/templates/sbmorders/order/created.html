@@ -1,10 +1,39 @@
-{% extends "shop/base.html" %}
+{% extends "sbmorders/base.html" %}
+{% load i18n wagtailcore_tags wagtailimages_tags %}
+{% load widget_tweaks %}
+{% load wagtailcore_tags %}
+{% load static %}
+{% load menu_tags %}
 
 {% block title %}
   Thank you
 {% endblock %}
 
 {% block content %}
-  <h1>Thank you</h1>
-  <p>Your order has been successfully completed. Your order number is <strong>{{ order.id }}</strong>.</p>
+{% include 'sbmshop/header.html' %}
+<section class="pt-50 pb-50 dark-bg">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-5">
+         
+        </div>
+        <div class="col-md-1"></div>
+     
+      </div>
+    </div>
+  </section>
+<section>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 terms">
+          <h2 class="font-700">{% trans 'Thank you SmartBusinessMedia Order' %}</h2>
+          <h4>{% trans 'Your SmartBusinessMedia product order has been successfully completed. Your have' %} <strong>{{ order.id }}</strong> {% trans 'products orders' %}.</h4>
+          <h4>{% trans 'In the next 30 min the  SmartBusinessMedia C.E.O  will contact to you' %}</h4>
+          <h1>Be Smart, Be a SmartQuail...</h1>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
 {% endblock %}

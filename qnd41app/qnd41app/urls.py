@@ -30,12 +30,22 @@ urlpatterns = i18n_patterns (
     path('baton/', include('baton.urls')),
     path('social-auth/', include('social_django.urls', namespace='social')),
     path('rosetta/', include('rosetta.urls')),
+
     path('sbmshop/', include('sbmshop.urls', namespace='sbmshop')),
     path('sbmcart/', include('sbmcart.urls', namespace='sbmcart')),
     path('sbmorders/', include('sbmorders.urls', namespace='sbmorders')),
+
     path('sbashop/', include('sbashop.urls', namespace='sbashop')),
+    path('sbacart/', include('sbacart.urls', namespace='sbacart')),
+    path('sbaorders/', include('sbaorders.urls', namespace='sbaorders')),
+
     path('sblshop/', include('sblshop.urls', namespace='sblshop')),
+    path('sblcart/', include('sblcart.urls', namespace='sblcart')),
+    path('sblorders/', include('sblorders.urls', namespace='sblorders')),
+
     path('sbtshop/', include('sbtshop.urls', namespace='sbtshop')),
+    path('sbtcart/', include('sbtcart.urls', namespace='sbtcart')),
+    path('sbtorders/', include('sbtorders.urls', namespace='sbtorders')),
     
 
     re_path(r'^businessmedia/', include(wagtailadmin_urls),name='wagtail'),

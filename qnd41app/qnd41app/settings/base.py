@@ -94,11 +94,15 @@ INSTALLED_APPS = [
     #smartbusinesslaw
     'sblcart',
     'sblshop',
+    'sblorders',
     #smartbusinessanalitycs
     'sbashop',
     'sbacart',
+    'sbaorders',
     #smartbusinesstech
     'sbtshop',
+    'sbtcart',
+    'sbtorders',
 
     'modelcluster',
     'taggit',

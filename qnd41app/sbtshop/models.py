@@ -8,6 +8,7 @@ class Category(models.Model):
                             unique=True)
     logo = models.ImageField(upload_to='logo/%Y/%m/%d',
                               blank=True,null=True)
+    info= models.TextField(blank=True)
 
     class Meta:
         ordering = ('name',)
@@ -47,6 +48,7 @@ class SBTProduct(models.Model):
     item4 = models.CharField(max_length=200, db_index=True,null=True,blank=True)
 
     description = models.TextField(blank=True)
+    conditions = models.TextField(blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     available = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)

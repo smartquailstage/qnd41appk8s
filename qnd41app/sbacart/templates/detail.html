@@ -41,13 +41,13 @@
             
                 <div class="col-md-3 career-category"><span>{% trans 'Subtotal price' %}: ${{ item.total_price }} </span></div>
               <div class="career-details col-md-3"> 
-                <form action="{% url "sblcart:cart_add" product.id %}" method="post">
+                <form action="{% url "sbacart:cart_add" product.id %}" method="post">
                   {{ item.update_quantity_form.quantity }}
                   {{ item.update_quantity_form.update }}
                   <input type="submit" class="btn btn-color btn-square btn-animate" value="Update">
                   {% csrf_token %}
                 </form>  
-                <a class="btn btn-dark btn-square btn-animate" href="{% url "sblcart:cart_remove" product.id %}">{% trans 'Remove' %}</a>   
+                <a class="btn btn-dark btn-square btn-animate" href="{% url "sbacart:cart_remove" product.id %}">{% trans 'Remove' %}</a>   
             </div>
            
           </li>

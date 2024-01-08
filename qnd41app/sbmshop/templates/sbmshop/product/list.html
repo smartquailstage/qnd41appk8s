@@ -39,12 +39,13 @@
     <div class="row">
      
       <div class="col-sm-8 section-heading">
-        <h2 class="text-uppercase wow fadeTop" data-wow-delay="0.1s">{% trans 'Legal IT Cloud Business Systems' %}</h2>
-        <h4 class="text-uppercase text-uppercase wow fadeTop" data-wow-delay="0.2s">- Tell a Bigger Story -</h4>
+        <h3 class="text-uppercase wow fadeTop" data-wow-delay="0.1s">{% trans 'Order your the SmartBusinessLaw products' %}</h3>
+        <h4 class="text-uppercase text-uppercase wow fadeTop" data-wow-delay="0.2s">- {% trans 'Choose your legal software Now' %}  -</h4>
         <div class="mt-30 wow fadeTop" data-wow-delay="0.3s">
-          <p>We are a fully in-house digital agency focusing on branding, marketing, web design and development with clients ranging from start-ups, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed varius quam ut magna ultricies pellentesque. </p>
+          {% for c in categories %} 
+          <p> {{ c.info }}</p>
+          {% endfor %}
         </div>
-        asas
     </div>
     <div class="row mt-50">
       {% for product in products %}

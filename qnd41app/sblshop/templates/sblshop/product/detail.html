@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block content %}
-{% include 'shop/header.html' %}
+{% include 'sblshop/header.html' %}
 
 <section class="pt-50 pb-50 dark-bg">
   <div class="container">
@@ -29,7 +29,9 @@
       <div class="col-md-6">
         <div class="product-slider flexslider">
           <ul class="slides">
-            <li data-thumb="assets/images/shop/single-product-01.jpg"> <img src="http://www.incognitothemes.com/scoda/assets/images/shop/single-product-01.jpg" class="img-responsive" alt="single-product" /> </li>
+            <li data-thumb="assets/images/shop/single-product-01.jpg"> 
+              <img src="{% if product.image %} {{ product.image.url }} {% else %} {% static 'img/no_image' %}{% endif %}" class="img-responsive" alt="single-product" />
+             </li>
           </ul>
         </div>
       </div>
@@ -96,8 +98,7 @@
             </ul>
             </p>
           <h5>{% trans 'Terms & Conditions' %}</h5>
-          <p>Machine wash cold Do not bleach or wash with chlorine based detergent or water Wash/dry inside out Do not iron directly on prints Dry promptly in shade
-            Dry on a flat surface as hanging may cause measurement variations Product color may vary little due to photography Wash with similar clothes.</p>
+          <p>{{ product.conditions }}</p>
         </div>
       </div>
     </div>
