@@ -7,7 +7,7 @@ from modelcluster.fields import ParentalKey
 from modelcluster.tags import ClusterTaggableManager
 from taggit.models import Tag as TaggitTag
 from taggit.models import TaggedItemBase
-from wagtail.admin.panels import ( FieldPanel, FieldRowPanel,InlinePanel,MultiFieldPanel,PageChooserPanel,)
+from wagtail.admin.panels import ( FieldPanel, FieldRowPanel,InlinePanel,MultiFieldPanel,PageChooserPanel)
 from streams import blocks
 from wagtail.models import Page,Orderable
 from wagtail.snippets.models import register_snippet
@@ -924,4 +924,174 @@ class GaleriaContactus(Orderable):
 
     panels = [
         FieldPanel('image'),
+    ]
+
+
+
+class ArticleListingPage(Page):
+    template = "webapp/article_listing_page.html"
+
+    custom_title = models.CharField(
+        max_length=100,
+        blank=False,
+        null=False,
+        help_text='Overwrites the default title',
+    )
+
+    content_panels = Page.content_panels + [
+        FieldPanel("custom_title"),
+    ]
+
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+        context["posts"] = ArticleDetailPage.objects.live().public()
+        return context
+    
+class comments_ArticleDetailPage(AbstractFormField):
+    page = ParentalKey('ArticleDetailPage', on_delete=models.CASCADE, related_name='form_fields')
+
+class ArticleDetailPage(AbstractEmailForm):
+
+    category = models.CharField(
+        max_length=100,
+        blank=False,
+        null=True,
+        help_text='Article category',
+    )
+
+    author = models.CharField(
+        max_length=100,
+        blank=False,
+        null=True,
+        help_text='Author Article',
+    )
+
+    bio2 = models.CharField(
+        max_length=500,
+        blank=False,
+        null=True,
+        help_text='Author bio',
+    )
+
+    custom_title = models.CharField(
+        max_length=100,
+        blank=False,
+        null=True,
+        help_text='Overwrites article title',
+    )
+    custom_subtitle = models.CharField(
+        max_length=100,
+        blank=False,
+        null=True,
+        help_text='Overwrites article subtitle',
+    )
+    blog_image = models.ForeignKey(
+        "wagtailimages.Image",
+        blank=False,
+        null=True,
+        related_name="+",
+        on_delete=models.SET_NULL,
+    )
+    date = models.DateTimeField(auto_now=True)
+    abstract = RichTextField(blank=True,verbose_name='Abstract')
+    comments = RichTextField(blank=True,verbose_name='Mensaje para que nos dejen un comentario')
+    thank_you_text = RichTextField(blank=True)
+
+    content = StreamField(
+        [
+            ("title_and_text", blocks.TitleAndTextBlock()),
+            ("full_richtext", blocks.RichtextBlock()),
+            ("simple_richtext", blocks.SimpleRichtextBlock()),
+            ('image', ImageChooserBlock()),
+            ("cards", blocks.CardBlock()),
+        ],use_json_field=True,
+        null=True,
+        blank=True,
+    )
+
+    content_panels = Page.content_panels + [
+        FieldPanel("category"),
+        FieldPanel("author"),
+        FieldPanel("bio2"),
+        FieldPanel("custom_title"),
+        FieldPanel("custom_subtitle"),
+        FieldPanel("blog_image"),
+        InlinePanel('galleria_article_Page', label="Imagenes del articulo"),
+        FieldPanel("abstract"),
+        FieldPanel("content"),
+        FormSubmissionsPanel(),
+        InlinePanel('form_fields', label="comments"),
+        FieldPanel('thank_you_text', classname="full"),
+        MultiFieldPanel([
+            FieldRowPanel([
+                FieldPanel('from_address', classname="col6"),
+                FieldPanel('to_address', classname="col6"),
+            ]),
+            FieldPanel('subject'),
+        ], "Email"),
+    ]
+
+    def get_form_fields(self):
+        return self.form_fields.all()
+
+    def get_data_fields(self):
+        data_fields = [
+            ('name', 'Name'),
+        ]
+        data_fields += super().get_data_fields()
+
+        return data_fields
+
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+
+        # If you need to show results only on landing page,
+        # you may need check request.method
+
+        results = dict()
+        # Get information about form fields
+        data_fields = [
+            (field.clean_name, field.label)
+            for field in self.get_form_fields()
+        ]
+
+        # Get all submissions for current page
+        submissions = self.get_submission_class().objects.filter(page=self)
+        for submission in submissions:
+            data = submission.get_data()
+
+            # Count results for each question
+            for name, label in data_fields:
+                answer = data.get(name)
+                if answer is None:
+                    # Something wrong with data.
+                    # Probably you have changed questions
+                    # and now we are receiving answers for old questions.
+                    # Just skip them.
+                    continue
+
+                if type(answer) is list:
+                    # Answer is a list if the field type is 'Checkboxes'
+                    answer = u', '.join(answer)
+
+                question_stats = results.get(label, {})
+                question_stats[answer] = question_stats.get(answer, 0) + 1
+                results[label] = question_stats
+
+        context.update({
+            'results': results,
+        })
+        return context
+    
+class galleria_article_Page(Orderable):
+    page = ParentalKey(ArticleDetailPage, on_delete=models.CASCADE, related_name='galleria_article_Page')    
+    image_1 = models.ForeignKey('wagtailimages.Image',null=True,blank=True,on_delete=models.SET_NULL,related_name='+',verbose_name='Banner')
+    image_2 = models.ForeignKey('wagtailimages.Image',null=True,blank=True,on_delete=models.SET_NULL,related_name='+',verbose_name='Author picture')
+    image_3 = models.ForeignKey('wagtailimages.Image',null=True,blank=True,on_delete=models.SET_NULL,related_name='+',verbose_name='imagen 2')
+    
+    
+    panels = [
+        FieldPanel('image_1'),
+        FieldPanel('image_2'),
+        FieldPanel('image_3')
     ]

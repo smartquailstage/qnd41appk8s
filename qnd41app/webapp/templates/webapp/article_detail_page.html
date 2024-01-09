@@ -15,22 +15,20 @@
 
 {% main_menu template="webapp/home/header.html" %}
 
-{% for item in page.galleria_article_Page.all %}
-{% image item.image_1 scale-100 as s1 %}
-<style>
-.blog-cover-bg {
-	background-image: url("s1.url");
-}
-</style>
-{% endfor %}
 
-<section class="title-hero-bg blog-cover-bg" data-stellar-background-ratio="0.2">
+
+<section class="title-hero-bg"  data-stellar-background-ratio="0.2">
+  {% for item in page.galleria_article_Page.all %}
+{% image item.image_2 scale-100 as b1 %}
+  <div class="slide-cover-bg" style="background-image: url('b1.url')">
     <div class="container">
       <div class="page-title text-center">
         <h1> {{ self.category }} </h1>
         <h4 class="text-uppercase mt-30 white-color">{{ self.custom_subtitle }}</h4>
       </div>
     </div>
+  </div>
+  {% endfor %}
   </section>
   <!--=== page-title-section end ===-->
 
