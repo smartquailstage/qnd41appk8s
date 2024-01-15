@@ -2,16 +2,16 @@ django==4.2.6
 django-dotenv
 django-baton
 
-wagtail==5.1.3
+wagtail==5.2.1
 
 django-social-share
 wagtailgmaps
 wagalytics==1.3
 
 requests
-celery
+celery==5.3.6
 #gunicorn
-uWSGI==2.0.22
+uWSGI==2.0.23
 redis
 django-dotenv
 psycopg2-binary
@@ -32,12 +32,13 @@ django-embed-video
 django-ckeditor
 django-qr-code
 
-kombu==5.2.2
+kombu==5.3.4
 django-parler
 django-localflavor
 django-rosetta
 wagtail-localize
 wagtailmenus
+weasyprint==60.2
 
 botocore==1.29.27
 boto3==1.26.27
