@@ -111,6 +111,7 @@ INSTALLED_APPS = [
     'webapp',
     'rosetta',
     'qr_code',
+    'baton.autodiscover',
     
 ]
 
